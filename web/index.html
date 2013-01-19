@@ -1,0 +1,116 @@
+<html>
+<head>
+
+	<title>QuickVis - Share Visualizations Fast!</title>
+	
+	<meta name="description" content="Share simple sketches fafst!">
+	<meta name="keywords" content="Quick, Vis, QuickVis, Share, Simple, SKetches, Visualizations, Visualization">
+
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="./js/canvas.js"></script>
+	
+</head>
+<body>
+
+	<div class="top">
+	
+		<div class="sitewrapper">
+		
+			<div class="canvastop">
+		
+				<!-- COLORS! -->
+				<div class="leftbox">
+				
+					<div class="colorwrapper">
+						<div class="color" id="colorDarkRed" onclick="setPenColor('#8B0000')">
+						</div>
+					</div>
+				
+					<div class="colorwrapper">
+						<div class="color" id="colorCrimson" onclick="setPenColor('#DC143C')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorOrangeRed" onclick="setPenColor('#FF4500')">
+						</div>
+					</div>
+				
+					<div class="colorwrapper">
+						<div class="color" id="colorOliveDrab" onclick="setPenColor('#6B8E23')">
+						</div>
+					</div>
+				
+					<div class="colorwrapper">
+						<div class="color" id="colorGreen" onclick="setPenColor('#008000')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorDarkKhaki" onclick="setPenColor('DarkKhaki')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorDodgerBlue" onclick="setPenColor('DodgerBlue')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorCadetBlue" onclick="setPenColor('CadetBlue')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorAliceBlue" onclick="setPenColor('AliceBlue')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorIvory" onclick="setPenColor('Ivory')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorGainsboro" onclick="setPenColor('Gainsboro')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorSlateGray" onclick="setPenColor('SlateGray')">
+						</div>
+					</div>
+					
+					<div class="colorwrapper">
+						<div class="color" id="colorBlack" onclick="setPenColor('Black')">
+						</div>
+					</div>
+				
+				</div>
+				
+				<!-- MAIN DRAWING AREA -->
+				<div class="canvasDiv" id="canvasDiv" >
+				
+				</div>
+				
+				<!-- SAVE/SHARE/CLEAR -->
+				<div class="rightbox">
+				
+					<div class="controlwrapper">
+						<div class="control" onclick="resetImage()">
+							<span>Clear Image</span>
+						</div>
+					</div>
+				
+				</div>
+			
+			</div>
+		
+		</div>
+	
+	</div>
+
+</body>
+</html>

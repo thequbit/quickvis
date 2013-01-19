@@ -1,0 +1,207 @@
+
+/* reset the browser */
+*
+{
+	margin:0;
+	padding:0;
+}
+
+/* set background image */
+body
+{
+	background-image:url('../media/scribble_light.png');
+	background-repeat:repeat-y repeat-x;
+}
+
+div.top
+{
+	margin: auto;
+	font: bold 12px sans-serif;
+}
+
+div.sitewrapper
+{
+	margin: auto;
+	width: 1160px; 
+}
+
+div.canvastop
+{
+	margin-top: 50px;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	background-color: Silver;
+	border-radius:10px;
+	width: 1126px;
+	height: 632px;
+}
+
+div.leftbox
+{
+	background-color: LightGray;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border: 1px solid black;
+	width: 130px;
+	height: 600px;
+	float: left;
+}
+
+div.canvasDiv
+{
+	background-color: LightGray;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border: 1px solid black;
+	width: 800px;
+	height: 600px;
+	display: inline-block;
+	cursor: crosshair;
+}
+
+div.rightbox
+{
+	position: absolute;
+	background-color: LightGray;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border: 1px solid black;
+	width: 130px;
+	height: 600px;
+	display: inline-block;
+}
+
+/*
+ *
+ * COLORS OMG COLORS
+ *
+ */
+div.colorwrapper
+{
+	width: 100px;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+div.color
+{
+	height: 30px;
+	text-align:center;
+	border-radius:10px;
+	cursor: pointer;
+}
+
+/* reds */
+
+#colorDarkRed
+{
+	background-color: DarkRed;
+}
+
+#colorCrimson
+{
+	background-color: Crimson;
+}
+
+#colorOrangeRed
+{
+	background-color: OrangeRed;
+}
+
+/* greens */
+
+
+#colorOliveDrab
+{
+	background-color: OliveDrab;
+}
+
+ 
+#colorGreen
+{
+	background-color: Green;
+}
+
+ 
+#colorDarkKhaki
+{
+	background-color: DarkKhaki;
+}
+
+
+/* blues */
+
+#colorDodgerBlue
+{
+	background-color: DodgerBlue;
+}
+
+ 
+#colorCadetBlue
+{
+	background-color: CadetBlue;
+}
+
+#colorAliceBlue
+{
+	background-color: AliceBlue;	
+}
+
+/* lights/darks */
+
+ 
+#colorIvory
+{
+	background-color: Ivory;
+}
+
+ 
+#colorGainsboro 
+{
+	background-color: Gainsboro;
+}
+
+ 
+#colorSlateGray
+{
+	background-color: SlateGray;
+}
+
+ 
+#colorBlack
+{
+	background-color: Black;
+}
+
+/*
+ *
+ * CONTROLS OMG CONTROLS
+ *
+ */
+ 
+div.controlwrapper
+{
+	width: 100px;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	vertical-align:middle;
+}
+
+div.control
+{
+	height: 30px;
+	text-align:center;
+	background-color: Lavender;
+	border-radius:10px;
+	line-height: 30px; /* WHY THE F is this the answer to get this STUPID thing to center vertically ... ERRRRRRRRR*/
+	cursor: pointer;
+}
