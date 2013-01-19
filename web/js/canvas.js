@@ -3,27 +3,34 @@
 	var canvasWidth = 800;
 	var canvasHeight = 600;
 	
-	var clicksX = new Array();
-	var clicksY = new Array();
-	var clickDrags = new Array();
-	var penColors = new Array();
-	var penSizes = new Array();
+	//var clicksX = new Array();
+	//var clicksY = new Array();
+	//var clickDrags = new Array();
+	//var penColors = new Array();
+	//var penSizes = new Array();
 	//var texts = new Array();
-	var currentIndex = 0;
+	//var currentIndex = 0;
 	
 	var paint;
-	var penStyle = "Pen";
-	var drawingBox = false;
-	var boxStartX = 0;
-	var boxStartY = 0;
+	//var penStyle = "Pen";
+	//var drawingBox = false;
+	//var boxStartX = 0;
+	//var boxStartY = 0;
+
+	// image layers
+	var currentLayerIndex = 0;
+	var layers = new Array();
 
 	$(document).ready(function () {
 
 		/* init array of drags, clicks, and pens*/
-		initArrays();
+		//initArrays();
+
+		// init our first layer
+		var firstlayer = createNewLayer("#000000", "5", "Pen");
+		layers.push(firstlayer);
 
 		/* Setup canvas stuff */
-
 		var canvasDiv = document.getElementById('canvasDiv');
 		canvas = document.createElement('canvas');
 		canvas.setAttribute('width', canvasWidth);
@@ -34,6 +41,8 @@
 			canvas = G_vmlCanvasManager.initElement(canvas);
 		}
 		context = canvas.getContext("2d");
+		// set font for text
+		
 
 		$('#canvas').mousedown(function(e){
 			var mouseX = e.pageX - this.offsetLeft;
@@ -53,15 +62,22 @@
 		
 		$('#canvas').mouseup(function(e){
 			
-			//addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-			
 			paint = false;
+			
+			// we need to create a new layer to paint to now that we are done with the previous one.
+			var layer = createNewLayer(layers[currentLayerIndex].pencolor, layers[currentLayerIndex].pensize, layers[currentLayerIndex].penstyle);
+			
+			layers.push(layer);
+			currentLayerIndex++;
+			
+			/*
 			clicksX.push(new Array());
 			clicksY.push(new Array());
 			clickDrags.push(new Array());
 			penColors.push(penColors[currentIndex]);
 			penSizes.push(penSizes[currentIndex]);
 			currentIndex++;
+			*/
 		});
 		
 		$('#canvas').mouseleave(function(e){
@@ -75,20 +91,52 @@
 	
 	function initArrays()
 	{
-		/* init array of drags, clicks, and pens for use */
+		/*
+		// init array of drags, clicks, and pens for use
 		clickDrags.push(new Array()); // default zero index drag array
 		clicksX.push(new Array());
 		clicksY.push(new Array());
 		penColors.push("#000000");// defualt to BLACK!
 		penSizes.push("5");
+		*/
+	}
+	
+	function createNewLayer(pencolor, pensize, penstyle)
+	{
+		// create our layer
+		var layer = {};
+		
+		// create an array of clicks to work with
+		layer.clicks = new Array();
+	 	
+		layer.pencolor = pencolor;
+	 	layer.pensize = pensize;
+		layer.penstyle = penstyle;
+		
+		// what a click looks like
+		/*
+			var click = {};
+			click.x = x;
+			click.y = y;
+			click.dragging = dragging;
+			layer.clicks.push(click);
+	 	*/
+	
+		// create our defautl text region for the layer
+	 	layer.text = {};
+		layer.text.x = -1;
+		layer.text.y = -1;
+		layer.text.value = "";
+		
+		return layer;
 	}
 	
 	function addClick(x, y, dragging)
 	{
-		switch(penStyle)
+		switch(layers[currentLayerIndex].penstyle)
 		{
 			case "Box":
-			
+				/*
 				if( dragging == false )
 				{
 			
@@ -101,6 +149,7 @@
 						drawingBox = true;
 						boxStartX = x;
 						boxStartY = y;
+						boxIndex = currentIndex;
 					}
 					else
 					{
@@ -162,24 +211,35 @@
 					}
 			
 				}
-			
+				*/
 				break;
 				
 			case "Text":
-				if( dragging == false )
-				{
-					alert("Not yet implemented");
-				}
+				
+				layers[currentLayerIndex].text.x = x;
+				layers[currentLayerIndex].text.y = y;
+			
 				break;
 				
 			case "Pen":
 			default:
 			
+				// create the click object
+				var click = {};
+					click.x = x;
+					click.y = y;
+					click.dragging = dragging;
+					
+				// ad the object to the array of other click objects
+				layers[currentLayerIndex].clicks.push(click);
+			
+				/*
 				// default to pen
 				clicksX[currentIndex].push(x);
 				clicksY[currentIndex].push(y);
 				clickDrags[currentIndex].push(dragging);
-			
+				*/
+				
 				break;
 		}
 	}
@@ -188,10 +248,47 @@
 	{
 		canvas.width = canvas.width; // Clears the canvas
 
+		context.lineJoin = "round";
+
+		for(var j=0; j < layers.length; j++)
+		{
+			// set pen color and size
+			context.strokeStyle = layers[j].pencolor;
+			context.lineWidth = layers[j].pensize;
+		
+			// draw lines
+			for(var i=0; i < layers[j].clicks.length; i++)
+			{
+				context.beginPath();
+				
+				if(layers[j].clicks[i].dragging && i)
+				{
+					context.moveTo(layers[j].clicks[i-1].x, layers[j].clicks[i-1].y);
+				}else
+				{
+					context.moveTo(layers[j].clicks[i].x-1, layers[j].clicks[i].y);
+				}
+				
+				context.lineTo(layers[j].clicks[i].x, layers[j].clicks[i].y);
+				context.closePath();
+				context.stroke();
+			}
+			
+			// set text color and font
+			context.fillStyle = context.strokeStyle = layers[j].pencolor;
+			context.font = "bold 16px sans-serif";
+			
+			// draw text
+			context.fillText(layers[j].text.value, layers[j].text.x, layers[j].text.y);
+		}
+		
+
+		/*
+		
 		for(var j=0; j < clicksX.length; j++)
 		{
 			context.strokeStyle = penColors[j];
-			context.lineJoin = "round";
+			
 			context.lineWidth = penSizes[j];
 		
 			for(var i=0; i < clicksX[j].length; i++)
@@ -212,14 +309,14 @@
 			}
 		}
 		
-		
+		*/
 	}
 	
 	function setPenColor(newPenColor)
 	{
 		//alert("New Color: " + newPenColor);
 	
-		penColors[currentIndex] = newPenColor;
+		layers[currentLayerIndex].pencolor = newPenColor;
 		
 		//redraw();
 	}
@@ -283,6 +380,11 @@
 				// set the border of the type we are using
 				$('#styletext').css('border', '1px solid Red');
 				
+				// get input
+				var textvalue=prompt("Text to place:");
+				// set intput as layer text
+				layers[currentLayerIndex].text.value = textvalue;
+				
 				break;
 			case 'Pen':
 			default:
@@ -295,7 +397,7 @@
 		}
 		
 		// set our global
-		penStyle = style;
+		layers[currentLayerIndex].penstyle = style;
 	}
 	
 	function setPenSize(size)
@@ -313,7 +415,7 @@
 				$('#pensize1').css('border', '1px solid Red');
 		
 				// set our global
-				penSizes[currentIndex] = "1";
+				layers[currentLayerIndex].pensize = "1";
 		
 				break;
 			case '3':
@@ -321,7 +423,7 @@
 				$('#pensize3').css('border', '1px solid Red');
 			
 				// set our global
-				penSizes[currentIndex] = "10";
+				layers[currentLayerIndex].pensize = "10";
 			
 				break;
 				
@@ -333,7 +435,7 @@
 				$('#pensize2').css('border', '1px solid Red');
 				
 				// set our global
-			penSizes[currentIndex] = "5";
+				layers[currentLayerIndex].pensize = "5";
 				
 				break;
 		}
