@@ -10,6 +10,8 @@
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="./js/canvas.js"></script>
+	<script src="./js/canvas2image.js"></script>
+	<script src="./js/base64.js"></script>
 	
 </head>
 <body>
@@ -34,12 +36,22 @@
 					</div>
 					
 					<div class="colorwrapper">
-						<div class="color" id="colorOrangeRed" onclick="setPenColor('#FF4500')">
+						<div class="color" id="colorOrange" onclick="setPenColor('#FFA500')">
+						</div>
+					</div> 
+				
+					<div class="colorwrapper">
+						<div class="color" id="colorGoldenRod" onclick="setPenColor('#DAA520')">
 						</div>
 					</div>
 				
 					<div class="colorwrapper">
-						<div class="color" id="colorOliveDrab" onclick="setPenColor('#6B8E23')">
+						<div class="color" id="colorYellow" onclick="setPenColor('#FFFF00')">
+						</div>
+					</div>
+				
+					<div class="colorwrapper">
+						<div class="color" id="colorLimeGreen" onclick="setPenColor('#32CD32')">
 						</div>
 					</div>
 				
@@ -49,42 +61,32 @@
 					</div>
 					
 					<div class="colorwrapper">
-						<div class="color" id="colorDarkKhaki" onclick="setPenColor('DarkKhaki')">
+						<div class="color" id="colorPurple" onclick="setPenColor('#800080')">
 						</div>
 					</div>
 					
 					<div class="colorwrapper">
-						<div class="color" id="colorDodgerBlue" onclick="setPenColor('DodgerBlue')">
+						<div class="color" id="colorSteelBlue" onclick="setPenColor('#4682B4')">
+						</div>
+					</div>
+					 
+					<div class="colorwrapper">
+						<div class="color" id="colorSkyBlue" onclick="setPenColor('#87CEEB')">
 						</div>
 					</div>
 					
 					<div class="colorwrapper">
-						<div class="color" id="colorCadetBlue" onclick="setPenColor('CadetBlue')">
+						<div class="color" id="colorGainsboro" onclick="setPenColor('#DCDCDC')">
 						</div>
 					</div>
 					
 					<div class="colorwrapper">
-						<div class="color" id="colorAliceBlue" onclick="setPenColor('AliceBlue')">
+						<div class="color" id="colorSlateGray" onclick="setPenColor('#708090')">
 						</div>
 					</div>
 					
 					<div class="colorwrapper">
-						<div class="color" id="colorIvory" onclick="setPenColor('Ivory')">
-						</div>
-					</div>
-					
-					<div class="colorwrapper">
-						<div class="color" id="colorGainsboro" onclick="setPenColor('Gainsboro')">
-						</div>
-					</div>
-					
-					<div class="colorwrapper">
-						<div class="color" id="colorSlateGray" onclick="setPenColor('SlateGray')">
-						</div>
-					</div>
-					
-					<div class="colorwrapper">
-						<div class="color" id="colorBlack" onclick="setPenColor('Black')">
+						<div class="color" id="colorBlack" onclick="setPenColor('#000000')">
 						</div>
 					</div>
 				
@@ -95,12 +97,81 @@
 				
 				</div>
 				
-				<!-- SAVE/SHARE/CLEAR -->
+				<!-- CONTROL -->
 				<div class="rightbox">
+				
+					<!-- Image Control -->
+				
+					<div class="controlwrapper">
+						Image Control:
+					</div>
 				
 					<div class="controlwrapper">
 						<div class="control" onclick="resetImage()">
 							<span>Clear Image</span>
+						</div>
+					</div>
+				
+					<div class="controlwrapper">
+						<div class="control" onclick="saveImage()">
+							<span>Save Image</span>
+						</div>
+					</div>
+					
+					<!-- Pen Type -->
+					
+					<div class="controlwrapper">
+						Drawing Style:
+					</div>
+					
+					<div class="controlwrapper">
+						<div class="controldrawing" id="stylepen" onclick="setPenStyle('Pen')">
+							<span>Pen</span>
+						</div>
+					</div>
+					
+					<div class="controlwrapper">
+						<div class="controldrawing" id="stylebox" onclick="setPenStyle('Box')">
+							<span>Box</span>
+						</div>
+					</div>
+					
+					<div class="controlwrapper">
+						<div class="controldrawing" id="styletext" onclick="setPenStyle('Text')">
+							<span>Text</span>
+						</div>
+					</div>
+					
+					<!-- Pen Size -->
+					
+					<div class="controlwrapper">
+						Drawing Style:
+					</div>
+					
+					<div class="controlwrapper">
+						<div class="controldrawing" id="pensize1" onclick="setPenSize('1')">
+							<span>Point Size 1</span>
+						</div>
+					</div>
+					
+					<div class="controlwrapper">
+						<div class="controldrawing" id="pensize2" onclick="setPenSize('2')">
+							<span>Point Size 2</span>
+						</div>
+					</div>
+					
+					<div class="controlwrapper">
+						<div class="controldrawing" id="pensize3" onclick="setPenSize('3')">
+							<span>Point Size 3</span>
+						</div>
+					</div>
+					
+					
+					<!-- Because Open Source is Awesome -->
+					
+					<div class="controlwrapper" id="sourcecode">
+						<div class="control" onclick="launchGitHub()">
+							<span>Source Code</span>
 						</div>
 					</div>
 				

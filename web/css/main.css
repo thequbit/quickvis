@@ -98,8 +98,6 @@ div.color
 	cursor: pointer;
 }
 
-/* reds */
-
 #colorDarkRed
 {
 	background-color: DarkRed;
@@ -110,71 +108,56 @@ div.color
 	background-color: Crimson;
 }
 
-#colorOrangeRed
+#colorOrange
 {
-	background-color: OrangeRed;
+	background-color: Orange;
 }
 
-/* greens */
-
-
-#colorOliveDrab
+#colorGoldenRod
 {
-	background-color: OliveDrab;
+	background-color: GoldenRod;
 }
 
- 
+#colorYellow
+{
+	background-color: Yellow;
+}
+
+#colorLimeGreen 
+{
+	background-color: LimeGreen;
+}
+
 #colorGreen
 {
 	background-color: Green;
 }
 
+#colorSteelBlue
+{
+	background-color: SteelBlue;
+}
  
-#colorDarkKhaki
+#colorSkyBlue
 {
-	background-color: DarkKhaki;
+	background-color: SkyBlue;
 }
 
-
-/* blues */
-
-#colorDodgerBlue
+#colorPurple
 {
-	background-color: DodgerBlue;
+	background-color: Purple;
 }
 
- 
-#colorCadetBlue
-{
-	background-color: CadetBlue;
-}
-
-#colorAliceBlue
-{
-	background-color: AliceBlue;	
-}
-
-/* lights/darks */
-
- 
-#colorIvory
-{
-	background-color: Ivory;
-}
-
- 
 #colorGainsboro 
 {
 	background-color: Gainsboro;
 }
-
  
 #colorSlateGray
 {
 	background-color: SlateGray;
 }
 
- 
 #colorBlack
 {
 	background-color: Black;
@@ -204,4 +187,20 @@ div.control
 	border-radius:10px;
 	line-height: 30px; /* WHY THE F is this the answer to get this STUPID thing to center vertically ... ERRRRRRRRR*/
 	cursor: pointer;
+}
+
+div.controldrawing
+{
+	height: 30px;
+	text-align:center;
+	background-color: MintCream;
+	border-radius:10px;
+	line-height: 30px; /* WHY THE F is this the answer to get this STUPID thing to center vertically ... ERRRRRRRRR*/
+	cursor: pointer;
+}
+
+#sourcecode
+{
+	position:absolute;
+	bottom:0;
 }
