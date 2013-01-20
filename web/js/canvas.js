@@ -166,11 +166,6 @@
 					layers[currentLayerIndex].clicks[boxIndex+4].x = xStart;
 					layers[currentLayerIndex].clicks[boxIndex+4].y = yStart;
 					
-					if(layers[currentLayerIndex].clicks[boxIndex+1].x > (xStart+50))
-					{
-						alert("a");
-					}
-					
 					/*
 					
 					var click = {};
