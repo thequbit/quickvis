@@ -3,23 +3,17 @@
 	var canvasWidth = 800;
 	var canvasHeight = 600;
 	
-	//var clicksX = new Array();
-	//var clicksY = new Array();
-	//var clickDrags = new Array();
-	//var penColors = new Array();
-	//var penSizes = new Array();
-	//var texts = new Array();
-	//var currentIndex = 0;
-	
 	var paint;
-	//var penStyle = "Pen";
-	//var drawingBox = false;
-	//var boxStartX = 0;
-	//var boxStartY = 0;
 
 	// image layers
 	var currentLayerIndex = 0;
 	var layers = new Array();
+
+	var drawingBox = false;
+	var boxIndex = -1;
+	
+	var curx = 0;
+	var cury = 0;
 
 	$(document).ready(function () {
 
@@ -69,15 +63,7 @@
 			
 			layers.push(layer);
 			currentLayerIndex++;
-			
-			/*
-			clicksX.push(new Array());
-			clicksY.push(new Array());
-			clickDrags.push(new Array());
-			penColors.push(penColors[currentIndex]);
-			penSizes.push(penSizes[currentIndex]);
-			currentIndex++;
-			*/
+
 		});
 		
 		$('#canvas').mouseleave(function(e){
@@ -88,18 +74,6 @@
 		setPenStyle('Pen');
 	
 	});
-	
-	function initArrays()
-	{
-		/*
-		// init array of drags, clicks, and pens for use
-		clickDrags.push(new Array()); // default zero index drag array
-		clicksX.push(new Array());
-		clicksY.push(new Array());
-		penColors.push("#000000");// defualt to BLACK!
-		penSizes.push("5");
-		*/
-	}
 	
 	function createNewLayer(pencolor, pensize, penstyle)
 	{
@@ -136,82 +110,126 @@
 		switch(layers[currentLayerIndex].penstyle)
 		{
 			case "Box":
-				/*
+			
 				if( dragging == false )
 				{
-			
-					if( drawingBox == false )
-					{
-						//alert("start set to x,y (" + boxStartX +", " + boxStartY + ")");
-						
-						// we are not drawing the box yet, so record where the box is going to start
-						// and set the var so we know we are drawing the box
-						drawingBox = true;
-						boxStartX = x;
-						boxStartY = y;
-						boxIndex = currentIndex;
-					}
+				
+					//alert("start set to x,y (" + boxStartX +", " + boxStartY + ")");
+					
+					if( layers[currentLayerIndex].clicks.length == 0)
+						boxIndex = 0;
 					else
+						boxIndex = layers[currentLayerIndex].clicks.length - 1;
+					
+					
+					
+					// load in 5 clicks that we will update as the user redraws the screen
+					for(var i=0; i<5; i++)
 					{
-					
-						//alert("start: (" + boxStartX +", " + boxStartY + ")\nend: (" + x +", " + y + ")");
-					
-						// we are in the middle of drawing a box.  We are now done, and have the four
-						// cordinates we need to draw our box
-						drawingBox = false;
+						var click = {};
+							click.x = x;
+							click.y = y;
+							click.dragging = true;
 						
-						// top //
-						
-							// first click
-							clicksX[currentIndex].push(boxStartX);
-							clicksY[currentIndex].push(boxStartY);
-							clickDrags[currentIndex].push(true);
-							
-							// second click
-							clicksX[currentIndex].push(boxStartX + (x - boxStartX));
-							clicksY[currentIndex].push(boxStartY);
-							clickDrags[currentIndex].push(true);
-							
-						// right side //
-						
-							// first click
-							clicksX[currentIndex].push(boxStartX + (x - boxStartX));
-							clicksY[currentIndex].push(boxStartY);
-							clickDrags[currentIndex].push(true);
-							
-							// second click
-							clicksX[currentIndex].push(boxStartX + (x - boxStartX));
-							clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-							clickDrags[currentIndex].push(true);
-							
-						// bottom //
-						
-							// first click
-							clicksX[currentIndex].push(boxStartX + (x - boxStartX));
-							clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-							clickDrags[currentIndex].push(true);
-							
-							// second click
-							clicksX[currentIndex].push(boxStartX);
-							clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-							clickDrags[currentIndex].push(true);
-							
-						// left side //
-						
-							// first click
-							clicksX[currentIndex].push(boxStartX);
-							clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-							clickDrags[currentIndex].push(true);
-							
-							// second click
-							clicksX[currentIndex].push(boxStartX);
-							clicksY[currentIndex].push(boxStartY);
-							clickDrags[currentIndex].push(true);
-						
+						layers[currentLayerIndex].clicks.push(click);
 					}
-			
+					
 				}
-				*/
+				else
+				{
+				
+					//alert("start: (" + boxStartX +", " + boxStartY + ")\nend: (" + x +", " + y + ")");
+				
+					// we are in the middle of drawing a box.  We are now done, and have the four
+					// cordinates we need to draw our box
+					//drawingBox = true;
+					
+					// save these so we don't have to pull them each time
+					var xStart = layers[currentLayerIndex].clicks[boxIndex].x;
+					var yStart = layers[currentLayerIndex].clicks[boxIndex].y;
+					
+					// top-left
+					
+					// top-right
+					layers[currentLayerIndex].clicks[boxIndex+1].x = xStart + (x - xStart);
+					layers[currentLayerIndex].clicks[boxIndex+1].y = yStart;
+					
+					// bottom-right
+					layers[currentLayerIndex].clicks[boxIndex+2].x = xStart + (x - xStart);
+					layers[currentLayerIndex].clicks[boxIndex+2].y = yStart + (y - yStart);
+					
+					// bottom-left
+					layers[currentLayerIndex].clicks[boxIndex+3].x = xStart;
+					layers[currentLayerIndex].clicks[boxIndex+3].y = yStart + (y - yStart);
+					
+					// top-left
+					layers[currentLayerIndex].clicks[boxIndex+4].x = xStart;
+					layers[currentLayerIndex].clicks[boxIndex+4].y = yStart;
+					
+					if(layers[currentLayerIndex].clicks[boxIndex+1].x > (xStart+50))
+					{
+						alert("a");
+					}
+					
+					/*
+					
+					var click = {};
+					
+					// top //
+					
+						// first click
+												
+						click.x = boxStartX;
+						click.y = boxStartY;
+						click.dragging = true;
+						layers[currentLayerIndex].clicks.push(click);
+						
+						// second click
+						click.x = boxStartX + (x - boxStartX);
+						click.y = boxStartY;
+						click.dragging = true;
+						layers[currentLayerIndex].clicks.push(click);
+						
+					// right side //
+					
+						// first click
+						click.x = boxStartX + (x - boxStartX);
+						click.y = boxStartY;
+						click.dragging = true;
+						layers[currentLayerIndex].clicks.push(click);
+						
+						// second click
+						clicksX[currentIndex].push(boxStartX + (x - boxStartX));
+						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
+						clickDrags[currentIndex].push(true);
+						
+					// bottom //
+					
+						// first click
+						clicksX[currentIndex].push(boxStartX + (x - boxStartX));
+						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
+						clickDrags[currentIndex].push(true);
+						
+						// second click
+						clicksX[currentIndex].push(boxStartX);
+						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
+						clickDrags[currentIndex].push(true);
+						
+					// left side //
+					
+						// first click
+						clicksX[currentIndex].push(boxStartX);
+						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
+						clickDrags[currentIndex].push(true);
+						
+						// second click
+						clicksX[currentIndex].push(boxStartX);
+						clicksY[currentIndex].push(boxStartY);
+						clickDrags[currentIndex].push(true);
+					
+					*/
+				}
+			
 				break;
 				
 			case "Text":
@@ -233,15 +251,12 @@
 				// ad the object to the array of other click objects
 				layers[currentLayerIndex].clicks.push(click);
 			
-				/*
-				// default to pen
-				clicksX[currentIndex].push(x);
-				clicksY[currentIndex].push(y);
-				clickDrags[currentIndex].push(dragging);
-				*/
-				
 				break;
 		}
+		
+		// to be updated on the canvas
+		curx = x;
+		cury = y;
 	}
 	
 	function redraw()
@@ -275,41 +290,18 @@
 			}
 			
 			// set text color and font
-			context.fillStyle = context.strokeStyle = layers[j].pencolor;
+			context.fillStyle = layers[j].pencolor;
 			context.font = "bold 16px sans-serif";
 			
 			// draw text
 			context.fillText(layers[j].text.value, layers[j].text.x, layers[j].text.y);
 		}
 		
-
-		/*
+		context.fillStyle = "#000000";
+		context.font = "bold 12px sans-serif";
+		var cords = curx + "," + cury;
+		context.fillText(cords, 750,590);
 		
-		for(var j=0; j < clicksX.length; j++)
-		{
-			context.strokeStyle = penColors[j];
-			
-			context.lineWidth = penSizes[j];
-		
-			for(var i=0; i < clicksX[j].length; i++)
-			{		
-				context.beginPath();
-				
-				if(clickDrags[j][i] && i)
-				{
-					context.moveTo(clicksX[j][i-1], clicksY[j][i-1]);
-				}else
-				{
-					context.moveTo(clicksX[j][i]-1, clicksY[j][i]);
-				}
-				
-				context.lineTo(clicksX[j][i], clicksY[j][i]);
-				context.closePath();
-				context.stroke();
-			}
-		}
-		
-		*/
 	}
 	
 	function setPenColor(newPenColor)
