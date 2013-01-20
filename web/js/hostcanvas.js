@@ -14,11 +14,19 @@
 	
 	var curx = 0;
 	var cury = 0;
+	
+	var drawingToken;
 
 	$(document).ready(function () {
 
-		/* init array of drags, clicks, and pens*/
-		//initArrays();
+		// create our unique token
+		drawingToken = md5(Math.random().toString())
+		
+		// create url
+		var url = "http://mycodespace.net/projects/quickvis/view.php?token=" + drawingToken;
+		
+		// insert share link on main page
+		$("#sharelink").html('<a href="' + url + '">' + url + '</a>');
 
 		// init our first layer
 		var firstlayer = createNewLayer("#000000", "5", "Pen");
@@ -56,11 +64,10 @@
 		
 		$('#canvas').mouseup(function(e){
 			
-			paint = false;
-			
-			// we need to create a new layer to paint to now that we are done with the previous one.
+			paint = false;			
+
 			var layer = createNewLayer(layers[currentLayerIndex].pencolor, layers[currentLayerIndex].pensize, layers[currentLayerIndex].penstyle);
-			
+
 			layers.push(layer);
 			currentLayerIndex++;
 
@@ -70,8 +77,9 @@
 			paint = false;
 		});
 	
-		/* set the pen type */
+		/* set the pen type and size */
 		setPenStyle('Pen');
+		setPenSize('2');
 	
 	});
 	
@@ -122,7 +130,6 @@
 						boxIndex = layers[currentLayerIndex].clicks.length - 1;
 					
 					
-					
 					// load in 5 clicks that we will update as the user redraws the screen
 					for(var i=0; i<5; i++)
 					{
@@ -166,63 +173,6 @@
 					layers[currentLayerIndex].clicks[boxIndex+4].x = xStart;
 					layers[currentLayerIndex].clicks[boxIndex+4].y = yStart;
 					
-					/*
-					
-					var click = {};
-					
-					// top //
-					
-						// first click
-												
-						click.x = boxStartX;
-						click.y = boxStartY;
-						click.dragging = true;
-						layers[currentLayerIndex].clicks.push(click);
-						
-						// second click
-						click.x = boxStartX + (x - boxStartX);
-						click.y = boxStartY;
-						click.dragging = true;
-						layers[currentLayerIndex].clicks.push(click);
-						
-					// right side //
-					
-						// first click
-						click.x = boxStartX + (x - boxStartX);
-						click.y = boxStartY;
-						click.dragging = true;
-						layers[currentLayerIndex].clicks.push(click);
-						
-						// second click
-						clicksX[currentIndex].push(boxStartX + (x - boxStartX));
-						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-						clickDrags[currentIndex].push(true);
-						
-					// bottom //
-					
-						// first click
-						clicksX[currentIndex].push(boxStartX + (x - boxStartX));
-						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-						clickDrags[currentIndex].push(true);
-						
-						// second click
-						clicksX[currentIndex].push(boxStartX);
-						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-						clickDrags[currentIndex].push(true);
-						
-					// left side //
-					
-						// first click
-						clicksX[currentIndex].push(boxStartX);
-						clicksY[currentIndex].push(boxStartY + (y - boxStartY));
-						clickDrags[currentIndex].push(true);
-						
-						// second click
-						clicksX[currentIndex].push(boxStartX);
-						clicksY[currentIndex].push(boxStartY);
-						clickDrags[currentIndex].push(true);
-					
-					*/
 				}
 			
 				break;
@@ -292,11 +242,12 @@
 			context.fillText(layers[j].text.value, layers[j].text.x, layers[j].text.y);
 		}
 		
+		/*
 		context.fillStyle = "#000000";
 		context.font = "bold 12px sans-serif";
 		var cords = curx + "," + cury;
 		context.fillText(cords, 750,590);
-		
+		*/
 	}
 	
 	function setPenColor(newPenColor)
@@ -314,18 +265,16 @@
 		// TODO: Ask the user if they really want to blow away their image
 		//
 	
-		// blow away our arrays
-		clicksX = new Array();
-		clicksY = new Array();
-		clickDrags = new Array();
-		penColors = new Array();
-		
-		// reset our index
-		currentIndex = 0;
+		alert("reset");
 	
-		/* we need to blow away our click, drag, and pen arrays first */
-		initArrays();
+		// we need to blow away layers, and we should be good
+		layers = new Array();
+		currentLayerIndex = 0;
 		
+		// push a default layer to the array of layers
+		var firstlayer = createNewLayer("#000000", "5", "Pen");
+		layers.push(firstlayer);
+			
 		// update the canvas object
 		redraw();
 	}
@@ -428,4 +377,19 @@
 		}
 		
 		
+	}
+	
+	
+	function shareVis()
+	{
+		// generate big-o-list of clicks
+		
+		var count = 0;
+		
+		for(var i=0;i<layers.length;i++)
+		{
+			count = count + layers[i].clicks.length;
+		}
+		
+		alert(count);
 	}

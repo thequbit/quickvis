@@ -6,12 +6,13 @@
 	<meta name="description" content="Share simple sketches fast!">
 	<meta name="keywords" content="Quick, Vis, QuickVis, Share, Simple, SKetches, Visualizations, Visualization">
 
-	<link href="css/main.css" rel="stylesheet" type="text/css">
+	<link href="css/host.css" rel="stylesheet" type="text/css">
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="./js/canvas.js"></script>
+	<script src="./js/hostcanvas.js"></script>
 	<script src="./js/canvas2image.js"></script>
 	<script src="./js/base64.js"></script>
+	<script src="./js/md5.js"></script>
 	
 </head>
 <body>
@@ -19,6 +20,13 @@
 	<div class="top">
 	
 		<div class="sitewrapper">
+		
+			<div class="sharelinkwrapper">
+			
+				<div class="sharelink" id="sharelink">
+				</div>
+			
+			</div>
 		
 			<div class="canvastop">
 		
@@ -166,13 +174,25 @@
 						</div>
 					</div>
 					
+					<div class="controlwrapper">
+						Social:
+					</div>
+					
+					<div class="controlwrapper">
+						<div class="control" onclick="shareVis()">
+							<span>Share Vis</span>
+						</div>
+					</div>
+					
 					<!-- Because Open Source is Awesome -->
 					
+					<!--
 					<div class="controlwrapper" id="sourcecode">
 						<div class="control" onclick="launchGitHub()">
 							<span>Source Code</span>
 						</div>
 					</div>
+					-->
 				
 				</div>
 			

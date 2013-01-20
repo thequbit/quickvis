@@ -1,0 +1,105 @@
+
+/* reset the browser */
+*
+{
+	margin:0;
+	padding:0;
+}
+
+/* set background image */
+body
+{
+	background-image:url('../media/scribble_light.png');
+	background-repeat:repeat-y repeat-x;
+}
+
+div.top
+{
+	margin: auto;
+	font: bold 12px sans-serif;
+}
+
+div.sitewrapper
+{
+	margin: auto;
+	width: 1160px; 
+}
+
+div.sharelinkwrapper
+{
+	margin: auto;
+}
+
+div.sharelink
+{
+	text-align:center;
+	margin-top:20px;
+}
+
+div.canvastop
+{
+	margin-top: 30px;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	background-color: Silver;
+	border-radius:10px;
+	width: 1126px;
+	height: 632px;
+}
+
+div.viewcanvaswrapper
+{
+	margin: auto;
+}
+
+div.viewonlycanvas
+{
+	margin-top: 30px;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	background-color: Silver;
+	border-radius:10px;
+	width: 830px;
+	height: 632px;
+}
+
+div.leftbox
+{
+	background-color: LightGray;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border: 1px solid black;
+	width: 130px;
+	height: 600px;
+	float: left;
+}
+
+div.canvasDiv
+{
+	background-color: LightGray;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border: 1px solid black;
+	width: 800px;
+	height: 600px;
+	display: inline-block;
+	cursor: crosshair;
+}
+
+div.rightbox
+{
+	position: absolute;
+	background-color: LightGray;
+	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border: 1px solid black;
+	width: 130px;
+	height: 600px;
+	display: inline-block;
+}
